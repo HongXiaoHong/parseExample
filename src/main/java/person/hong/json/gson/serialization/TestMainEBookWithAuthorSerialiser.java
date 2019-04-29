@@ -1,0 +1,64 @@
+package person.hong.json.gson.serialization;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+/**
+ * 测试类 测试自己实现序列化接口  对象中有对象 即复杂对象 包括组成对象的序列化器
+ * @author 洪晓鸿     
+ * @date   2019年4月27日 下午3:30:36   
+ * @version V1.0
+ */
+public class TestMainEBookWithAuthorSerialiser {
+
+	/**
+	 * main方法
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// 创建一个builder对象 用于创建gson对象
+		GsonBuilder builder = new GsonBuilder()
+				//注册序列化器
+				.registerTypeAdapter(EBook.class, new EBookSerialiser())
+				.registerTypeAdapter(Author.class, new AuthorSerialiser())
+				//告诉了 Gson 对生成的 JSON 对象进行格式化
+				.setPrettyPrinting();
+		// 创建gson对象
+		Gson gson = builder.create();
+		
+		// 创建book
+		final EBook book = new EBook();
+		book.setTitle("Java 编程思想");
+		book.setIsbn("978-7-111-21250-8");
+		book.setAuthors(new Author[] {new Author(1,"Bruce Eckel"),new Author(2,"陈昊鹏")});
+		
+		// 序列化
+		String result = gson.toJson(book);
+		System.out.println(result);
+	}
+
+}
+/* 结果是:~
+* 调用了author的序列化器
+调用了author的序列化器
+{
+  "title": "Java 编程思想",
+  "isbn": "978-7-111-21250-8",
+  "authors": [
+    {
+      "id": 1,
+      "name": "Bruce Eckel"
+    },
+    {
+      "id": 2,
+      "name": "陈昊鹏"
+    }
+  ]
+}
+
+结果分析：
+JsonSerializationContext context.serialize(book.getAuthors());
+JsonElement authors
+返回的是一个 JsonElement 对象
+如果我们没有实现一个序列化器 
+会使用默认的序列化器进行序列化
+*///:~
