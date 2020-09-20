@@ -1,158 +1,159 @@
 package person.hong.json.fastjson.use;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Test;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-
+import org.junit.jupiter.api.Test;
 import person.hong.json.fastjson.entity.Course;
 import person.hong.json.fastjson.entity.Student;
 import person.hong.json.fastjson.entity.Teacher;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BeanStringJsonUse {
 
-	//json字符串-简单对象型
-	private static final String  JSON_OBJ_STR = "{\"studentName\":\"lily\",\"studentAge\":12}";
-	//json字符串-数组类型
-	private static final String  JSON_ARRAY_STR = "[{\"studentName\":\"lily\",\"studentAge\":12},{\"studentName\":\"lucy\",\"studentAge\":15}]";
-	//复杂格式json字符串
-	private static final String  COMPLEX_JSON_STR = "{\"teacherName\":\"crystall\",\"teacherAge\":27,\"course\":{\"courseName\":\"english\",\"code\":1270},\"students\":[{\"studentName\":\"lily\",\"studentAge\":12},{\"studentName\":\"lucy\",\"studentAge\":15}]}";
-	
-	public BeanStringJsonUse() {
-		super();
-	}
+    //json字符串-简单对象型
+    private static final String JSON_OBJ_STR = "{\"studentName\":\"lily\",\"studentAge\":12}";
+    //json字符串-数组类型
+    private static final String JSON_ARRAY_STR = "[{\"studentName\":\"lily\",\"studentAge\":12},{\"studentName\":\"lucy\",\"studentAge\":15}]";
+    //复杂格式json字符串
+    private static final String COMPLEX_JSON_STR = "{\"teacherName\":\"crystall\",\"teacherAge\":27,\"course\":{\"courseName\":\"english\",\"code\":1270},\"students\":[{\"studentName\":\"lily\",\"studentAge\":12},{\"studentName\":\"lucy\",\"studentAge\":15}]}";
 
-	/**
-	 * 简单JavaBean_obj到json对象的转换
-	 */
-	@Test
-	public void testJavaBeanToJSONObject(){
+    public BeanStringJsonUse() {
+        super();
+    }
 
-	    //已知简单JavaBean_obj
-	    Student student = new Student("lily", "12");
+    /**
+     * 简单JavaBean_obj到json对象的转换
+     */
+    @Test
+    public void testJavaBeanToJSONObject() {
 
-	    //方式一
-	    String jsonString = JSONObject.toJSONString(student);
-	    JSONObject jsonObject = JSONObject.parseObject(jsonString);
-	    System.out.println(jsonObject);
+        //已知简单JavaBean_obj
+        Student student = new Student("lily", "12");
 
-	    //方式二
-	    JSONObject jsonObject1 = (JSONObject) JSONObject.toJSON(student);
-	    System.out.println(jsonObject1);
-	}
+        //方式一
+        String jsonString = JSONObject.toJSONString(student);
+        JSONObject jsonObject = JSONObject.parseObject(jsonString);
+        System.out.println(jsonObject);
 
-	/**
-	 * 简单json对象到JavaBean_obj的转换
-	 */
-	@Test
-	public void testJSONObjectToJavaBean(){
+        //方式二
+        JSONObject jsonObject1 = (JSONObject) JSONObject.toJSON(student);
+        System.out.println(jsonObject1);
+    }
 
-	    //已知简单json对象
-	    JSONObject jsonObject = JSONObject.parseObject(JSON_OBJ_STR);
+    /**
+     * 简单json对象到JavaBean_obj的转换
+     */
+    @Test
+    public void testJSONObjectToJavaBean() {
 
-	    //第一种方式,使用TypeReference<T>类,由于其构造方法使用protected进行修饰,故创建其子类
-	    Student student = JSONObject.parseObject(jsonObject.toJSONString(), new TypeReference<Student>() {});
-	    System.out.println(student);
+        //已知简单json对象
+        JSONObject jsonObject = JSONObject.parseObject(JSON_OBJ_STR);
 
-	    //第二种方式,使用Gson的思想
-	    Student student1 = JSONObject.parseObject(jsonObject.toJSONString(), Student.class);
-	    System.out.println(student1);
-	}
-	
-	/**
-	 * JavaList到JsonArray的转换
-	 */
-	@Test
-	public void testJavaListToJsonArray() {
+        //第一种方式,使用TypeReference<T>类,由于其构造方法使用protected进行修饰,故创建其子类
+        Student student = JSONObject.parseObject(jsonObject.toJSONString(), new TypeReference<Student>() {
+        });
+        System.out.println(student);
 
-	    //已知JavaList
-	    Student student = new Student("lily", "12");
-	    Student studenttwo = new Student("lucy", "15");
+        //第二种方式,使用Gson的思想
+        Student student1 = JSONObject.parseObject(jsonObject.toJSONString(), Student.class);
+        System.out.println(student1);
+    }
 
-	    List<Student> students = new ArrayList<Student>();
-	    students.add(student);
-	    students.add(studenttwo);
+    /**
+     * JavaList到JsonArray的转换
+     */
+    @Test
+    public void testJavaListToJsonArray() {
 
-	    //方式一
-	    String jsonString = JSONArray.toJSONString(students);
-	    JSONArray jsonArray = JSONArray.parseArray(jsonString);
-	    System.out.println(jsonArray);
+        //已知JavaList
+        Student student = new Student("lily", "12");
+        Student studenttwo = new Student("lucy", "15");
 
-	    //方式二
-	    JSONArray jsonArray1 = (JSONArray) JSONArray.toJSON(students);
-	    System.out.println(jsonArray1);
-	}
+        List<Student> students = new ArrayList<Student>();
+        students.add(student);
+        students.add(studenttwo);
 
-	/**
-	 * JsonArray到JavaList的转换
-	 */
-	@Test
-	public void testJsonArrayToJavaList() {
+        //方式一
+        String jsonString = JSONArray.toJSONString(students);
+        JSONArray jsonArray = JSONArray.parseArray(jsonString);
+        System.out.println(jsonArray);
 
-	    //已知JsonArray
-	    JSONArray jsonArray = JSONArray.parseArray(JSON_ARRAY_STR);
+        //方式二
+        JSONArray jsonArray1 = (JSONArray) JSONArray.toJSON(students);
+        System.out.println(jsonArray1);
+    }
 
-	    //第一种方式,使用TypeReference<T>类,由于其构造方法使用protected进行修饰,故创建其子类
-	    ArrayList<Student> students = JSONArray.parseObject(jsonArray.toJSONString(),
-	            new TypeReference<ArrayList<Student>>() {});
+    /**
+     * JsonArray到JavaList的转换
+     */
+    @Test
+    public void testJsonArrayToJavaList() {
 
-	    System.out.println(students);
+        //已知JsonArray
+        JSONArray jsonArray = JSONArray.parseArray(JSON_ARRAY_STR);
 
-	    //第二种方式,使用Gson的思想
-	    List<Student> students1 = JSONArray.parseArray(jsonArray.toJSONString(), Student.class);
-	    System.out.println(students1);
-	}
-	
-	/**
-	 * JavaList到JsonArray的转换
-	 */
-	/**
-	 * 复杂JavaBean_obj到json对象的转换
-	 */
-	@Test
-	public void testComplexJavaBeanToJSONObject() {
+        //第一种方式,使用TypeReference<T>类,由于其构造方法使用protected进行修饰,故创建其子类
+        ArrayList<Student> students = JSONArray.parseObject(jsonArray.toJSONString(),
+                new TypeReference<ArrayList<Student>>() {
+                });
 
-	    //已知复杂JavaBean_obj
-	    Student student = new Student("lily", "12");
-	    Student studenttwo = new Student("lucy", "15");
+        System.out.println(students);
 
-	    List<Student> students = new ArrayList<Student>();
-	    students.add(student);
-	    students.add(studenttwo);
-	    Course course = new Course("english", 1270);
+        //第二种方式,使用Gson的思想
+        List<Student> students1 = JSONArray.parseArray(jsonArray.toJSONString(), Student.class);
+        System.out.println(students1);
+    }
 
-	    Teacher teacher = new Teacher("crystall", "27", students, course);
+    /**
+     * JavaList到JsonArray的转换
+     */
+    /**
+     * 复杂JavaBean_obj到json对象的转换
+     */
+    @Test
+    public void testComplexJavaBeanToJSONObject() {
 
-	    //方式一
-	    String jsonString = JSONObject.toJSONString(teacher);
-	    JSONObject jsonObject = JSONObject.parseObject(jsonString);
-	    System.out.println(jsonObject);
+        //已知复杂JavaBean_obj
+        Student student = new Student("lily", "12");
+        Student studenttwo = new Student("lucy", "15");
 
-	    //方式二
-	    JSONObject jsonObject1 = (JSONObject) JSONObject.toJSON(teacher);
-	    System.out.println(jsonObject1);
+        List<Student> students = new ArrayList<Student>();
+        students.add(student);
+        students.add(studenttwo);
+        Course course = new Course("english", 1270);
 
-	}
+        Teacher teacher = new Teacher("crystall", "27", students, course);
 
-	/**
-	 * 复杂json对象到JavaBean_obj的转换
-	 */
-	@Test
-	public void testComplexJSONObjectToJavaBean() {
+        //方式一
+        String jsonString = JSONObject.toJSONString(teacher);
+        JSONObject jsonObject = JSONObject.parseObject(jsonString);
+        System.out.println(jsonObject);
 
-	    //已知复杂json对象
-	    JSONObject jsonObject = JSONObject.parseObject(COMPLEX_JSON_STR);
+        //方式二
+        JSONObject jsonObject1 = (JSONObject) JSONObject.toJSON(teacher);
+        System.out.println(jsonObject1);
 
-	    //第一种方式,使用TypeReference<T>类,由于其构造方法使用protected进行修饰,故创建其子类
-	    Teacher teacher = JSONObject.parseObject(jsonObject.toJSONString(), new TypeReference<Teacher>() {});
-	    System.out.println(teacher);
+    }
 
-	    //第二种方式,使用Gson的思想
-	    Teacher teacher1 = JSONObject.parseObject(jsonObject.toJSONString(), Teacher.class);
-	    System.out.println(teacher1);
-	}
+    /**
+     * 复杂json对象到JavaBean_obj的转换
+     */
+    @Test
+    public void testComplexJSONObjectToJavaBean() {
+
+        //已知复杂json对象
+        JSONObject jsonObject = JSONObject.parseObject(COMPLEX_JSON_STR);
+
+        //第一种方式,使用TypeReference<T>类,由于其构造方法使用protected进行修饰,故创建其子类
+        Teacher teacher = JSONObject.parseObject(jsonObject.toJSONString(), new TypeReference<Teacher>() {
+        });
+        System.out.println(teacher);
+
+        //第二种方式,使用Gson的思想
+        Teacher teacher1 = JSONObject.parseObject(jsonObject.toJSONString(), Teacher.class);
+        System.out.println(teacher1);
+    }
 }

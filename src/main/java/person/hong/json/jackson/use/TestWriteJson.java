@@ -1,10 +1,10 @@
 package person.hong.json.jackson.use;
 
-import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.junit.jupiter.api.Test;
 import person.hong.json.jackson.entity.JSONCaseA;
 
 public class TestWriteJson {
