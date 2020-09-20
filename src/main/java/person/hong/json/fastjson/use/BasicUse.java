@@ -17,6 +17,11 @@ public class BasicUse {
     //复杂格式json字符串
     private static final String COMPLEX_JSON_STR = "{\"teacherName\":\"crystall\",\"teacherAge\":27,\"course\":{\"courseName\":\"english\",\"code\":1270},\"students\":[{\"studentName\":\"lily\",\"studentAge\":12},{\"studentName\":\"lucy\",\"studentAge\":15}]}";
 
+    /**
+     * @Description fastjson 简单类的解析
+     * @Time 2020/9/20 17:06
+     * @Author 洪晓鸿
+     */
     @Test
     public void sampleJson() {
         Student stu = JSONObject.parseObject(JSON_OBJ_STR, Student.class);
@@ -39,6 +44,11 @@ public class BasicUse {
 	{"studentAge":12,"studentName":"lily"}
 	 */
 
+    /**
+     * @Description fastjson 数组解析
+     * @Time 2020/9/20 17:09
+     * @Author 洪晓鸿
+     */
     @Test
     public void arrsyJson() {
         // 序列化
