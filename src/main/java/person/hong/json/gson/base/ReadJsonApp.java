@@ -1,32 +1,32 @@
 package person.hong.json.gson.base;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import com.google.gson.Gson;
-
 public class ReadJsonApp {
 
-	public static void main(String[] args) {
-		Reader reader = null;
-		try {
-			Gson gson = new  Gson();
-			// 存放位置放在项目
-			reader = new InputStreamReader(ReadJsonApp.class.getClassLoader().getResourceAsStream("output.json"), "UTF-8");
-			Person person = gson.fromJson(reader, Person.class);
-			System.out.println(person);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
+    public static void main(String[] args) {
+        Reader reader = null;
+        try {
+            Gson gson = new Gson();
+            // 存放位置放在项目
+            reader = new InputStreamReader(ReadJsonApp.class.getClassLoader().getResourceAsStream("output.json"), "UTF-8");
+            Person person = gson.fromJson(reader, Person.class);
+            System.out.println(person);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
 }
 /* 结果：

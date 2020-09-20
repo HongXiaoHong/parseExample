@@ -1,43 +1,45 @@
 package person.hong.json.gson.advanced;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 /**
  * 测试类 测试自己实现反序列化接口
- * @author 洪晓鸿     
- * @date   2019年4月27日 下午4:11:38   
+ *
+ * @author 洪晓鸿
  * @version V1.0
+ * @date 2019年4月27日 下午4:11:38
  */
 public class TestMainDeserialzation {
 
-	/**
-	 * main方法
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// 创建一个builder对象 用于创建gson对象
-				GsonBuilder builder = new GsonBuilder();
-				// 创建gson对象
-				Gson gson = builder.create();
-				
-				Reader reader;
-				try {
-					// 反序列化
-					reader = new InputStreamReader(TestMainBook.class.getResourceAsStream("/sample.json"), "UTF-8");
-					Book book = gson.fromJson(reader, Book.class);
-					System.out.println(book);
-					reader = new InputStreamReader(TestMainBook.class.getResourceAsStream("/alternativeName.json"), "UTF-8");
-					book = gson.fromJson(reader, Book.class);
-					System.out.println(book);
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
-	}
+    /**
+     * main方法
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        // 创建一个builder对象 用于创建gson对象
+        GsonBuilder builder = new GsonBuilder();
+        // 创建gson对象
+        Gson gson = builder.create();
+
+        Reader reader;
+        try {
+            // 反序列化
+            reader = new InputStreamReader(TestMainBook.class.getResourceAsStream("/sample.json"), "UTF-8");
+            Book book = gson.fromJson(reader, Book.class);
+            System.out.println(book);
+            reader = new InputStreamReader(TestMainBook.class.getResourceAsStream("/alternativeName.json"), "UTF-8");
+            book = gson.fromJson(reader, Book.class);
+            System.out.println(book);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 /* 结果是:~
