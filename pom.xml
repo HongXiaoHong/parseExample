@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jacksonVersion>2.11.0</jacksonVersion>
         <gsonVersion>2.8.5</gsonVersion>
-        <fastjsonVersion>1.2.73</fastjsonVersion>
+        <fastjsonVersion>1.2.83</fastjsonVersion>
     </properties>
 
     <dependencies>
